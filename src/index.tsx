@@ -8,6 +8,7 @@ import { createGlobalStyle } from "styled-components";
 //전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
   body, html {
+    background-color: rgb(23, 23, 24);
     margin: 0;
     padding: 0;
   }
