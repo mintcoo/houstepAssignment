@@ -15,3 +15,11 @@ export async function getItems() {
   const { data } = await axios.get<IItemsData[]>(`${BASE_URL}/items`);
   return data;
 }
+
+// ------- 주문 성공, 실패 임시 코드 --------
+export async function postItems(data: boolean) {
+  if (data) {
+    return data;
+  }
+  throw new Error();
+}

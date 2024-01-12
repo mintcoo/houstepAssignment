@@ -9,11 +9,13 @@ import { QueryClient, QueryClientProvider } from "react-query";
 //전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
   * {
+    // 마우스 드래그 금지
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    outline: none;
     user-select: none;
+    // 포커스 제거
+    outline: none;
   }
   body, html {
     background-color: rgb(23, 23, 24);

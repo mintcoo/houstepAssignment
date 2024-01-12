@@ -52,6 +52,7 @@ function Order() {
       {isLoading ? (
         <Loading />
       ) : (
+        // 재료 리스트
         <ItemContainer>
           {itemsData?.map((item) => (
             <ItemCard key={item.id} item={item} />

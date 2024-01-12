@@ -1,11 +1,11 @@
 import { IItemsData } from "Api/api";
 import { selectOrderListState } from "Store/atom";
-import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-const ItemCardContainer = styled.li<IItemCardContainer>`
-  background-color: ${(props) => (props.itemCount >= 1 ? "#ffe1d0" : "white")};
+const ItemCardContainer = styled.li`
+  background-color: ${(props) => props.color};
   box-sizing: border-box;
   display: flex;
   border: 0.1rem solid #7c4a66;
@@ -16,12 +16,13 @@ const ItemCardContainer = styled.li<IItemCardContainer>`
   margin-left: auto;
   margin-right: auto;
   padding: 0.5rem;
+  transition: all 0.1s ease-in-out;
   &:last-child {
     margin-bottom: 20vh;
   }
   @media screen and (min-width: 1024px) {
     height: 15%;
-    padding: 1.5rem;
+    padding: 1.2rem;
     border-radius: 1.5rem;
   }
 `;
@@ -31,6 +32,10 @@ const ItemImg = styled.img`
   height: 100%;
   margin-right: 1rem;
   background-color: #b4b4b4;
+  @media screen and (min-width: 1024px) {
+    width: 6rem;
+    height: 100%;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -38,6 +43,9 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media screen and (min-width: 1024px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const NameBox = styled.div`
@@ -65,13 +73,14 @@ const EventIcon = styled.div`
   padding: 0.2rem 0.5rem;
   margin-left: 0.2rem;
   @media screen and (min-width: 1024px) {
-    font-size: 1rem;
-    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 1.3rem;
   }
 `;
-interface IItemCardContainer {
-  itemCount: number;
-}
+
+const CursorBox = styled.div`
+  cursor: pointer;
+`;
 
 interface IItemCardProps {
   item: IItemsData;
@@ -84,7 +93,7 @@ function ItemCard({ item }: IItemCardProps) {
 
   // ----- 아이템 제거 함수-----
   const onRemoveItem = () => {
-    // 개수 음수 안되게
+    // 주문 개수 음수 불가
     if (itemCount <= 0) {
       setItemCount(0);
       return;
@@ -114,7 +123,7 @@ function ItemCard({ item }: IItemCardProps) {
 
   // ----- 아이템 추가 함수-----
   const onAddItem = () => {
-    // 개수 999 못넘게
+    // 주문 개수 999 제한
     if (itemCount >= 999) {
       setItemCount(999);
       return;
@@ -137,7 +146,7 @@ function ItemCard({ item }: IItemCardProps) {
   };
 
   return (
-    <ItemCardContainer itemCount={itemCount}>
+    <ItemCardContainer color={itemCount >= 1 ? "#ffe1d0" : "white"}>
       {/* 아이템 이미지 */}
       <ItemImg />
       <InfoContainer>
@@ -149,9 +158,9 @@ function ItemCard({ item }: IItemCardProps) {
         <CountBox>
           {/* 아이템 개수 추가 및 제거 */}
           <Count>
-            <div onClick={onRemoveItem}>-</div>
+            <CursorBox onClick={onRemoveItem}>-</CursorBox>
             <div>{itemCount}</div>
-            <div onClick={onAddItem}>+</div>
+            <CursorBox onClick={onAddItem}>+</CursorBox>
           </Count>
           {/* 아이템 가격 */}
           {price}원

@@ -9,7 +9,7 @@ const LoadingDiv = styled.div`
   margin-bottom: 20vh;
   font-size: 1.4rem;
   font-weight: bold;
-  color: #38b2ac;
+  color: #1a004d;
 `;
 
 function Loading() {
