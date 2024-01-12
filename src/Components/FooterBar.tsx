@@ -44,6 +44,11 @@ const SumBox = styled.div`
   }
 `;
 
+const CountBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 function FooterBar() {
   const navigate = useNavigate();
   const setSelectOrderList = useSetRecoilState(selectOrderListState);
@@ -72,7 +77,10 @@ function FooterBar() {
   return (
     <FootBarForm onSubmit={onSubmitOrder}>
       <SumBox>
-        <div>총 수량: {totalCount}개</div>
+        <CountBox>
+          <span>총 수량:</span>
+          <span>{totalCount}개</span>
+        </CountBox>
         <div>총 가격: {totalPrice}원</div>
       </SumBox>
       {/* 주문 버튼  */}
