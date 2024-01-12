@@ -27,14 +27,16 @@ const ItemCardContainer = styled.li`
   }
 `;
 
-const ItemImg = styled.img`
+const ItemImg = styled.div`
   width: 4rem;
   height: 100%;
+  max-height: 100%;
   margin-right: 1rem;
   background-color: #b4b4b4;
   @media screen and (min-width: 1024px) {
     width: 6rem;
     height: 100%;
+    max-height: 100%;
   }
 `;
 
@@ -43,6 +45,9 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media screen and (max-width: 600px) {
+    font-size: 0.7rem;
+  }
   @media screen and (min-width: 1024px) {
     font-size: 1.5rem;
   }
@@ -72,6 +77,9 @@ const EventIcon = styled.div`
   color: white;
   padding: 0.2rem 0.5rem;
   margin-left: 0.2rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.5rem;
+  }
   @media screen and (min-width: 1024px) {
     font-size: 0.9rem;
     padding: 0.4rem 1.3rem;

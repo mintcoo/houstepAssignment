@@ -9,7 +9,7 @@ import styled from "styled-components";
 const FootBarForm = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: end;
   z-index: 100;
   box-sizing: border-box;
