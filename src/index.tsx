@@ -8,6 +8,13 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 //전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
+    user-select: none;
+  }
   body, html {
     background-color: rgb(23, 23, 24);
     margin: 0;

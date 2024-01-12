@@ -1,5 +1,6 @@
-import { getItems } from "Api/api";
+import { IItemsData, getItems } from "Api/api";
 import FooterBar from "Components/FooterBar";
+import ItemCard from "Components/ItemCard";
 import Loading from "Components/Loading";
 import NavBar from "Components/NavBar";
 import { useQuery } from "react-query";
@@ -18,20 +19,32 @@ const OrderContainer = styled.div`
   }
 `;
 
-interface IItemsData {
-  id: string;
-  name: string;
-  event: number;
-  materialType: number;
-  price: number;
-}
+const ItemContainer = styled.ul`
+  overflow: auto;
+  list-style: none;
+  padding-left: 0;
+  @media (min-width: 1024px) {
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 20%;
+      background: #005673;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #ffffff;
+    }
+  }
+`;
 
 function Order() {
   const { isLoading, data: itemsData } = useQuery<IItemsData[]>(
     "itemList",
     getItems
   );
-  console.log(isLoading, itemsData, "로ㅓ딩중?");
 
   return (
     <OrderContainer>
@@ -39,11 +52,11 @@ function Order() {
       {isLoading ? (
         <Loading />
       ) : (
-        <ul>
+        <ItemContainer>
           {itemsData?.map((item) => (
-            <li>{item.name}</li>
+            <ItemCard key={item.id} item={item} />
           ))}
-        </ul>
+        </ItemContainer>
       )}
       <FooterBar />
     </OrderContainer>
