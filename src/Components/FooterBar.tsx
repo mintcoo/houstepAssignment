@@ -1,4 +1,6 @@
+import { totalOrderInfoSelector } from "Store/atom";
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 const FootBarForm = styled.form`
@@ -19,20 +21,21 @@ const FootBarForm = styled.form`
   box-shadow: 0 -4px 3px rgba(0, 0, 0, 0.5);
 `;
 
-const OrderButton = styled.button`
+const OrderButton = styled.button<IOrderButton>`
   border: none;
-  background-color: grey;
+  background-color: ${(props) => (props.totalCount >= 1 ? "black" : "gray")};
   color: white;
   padding: 1.2rem;
   width: 100%;
   font-size: 1.1rem;
   font-weight: bold;
-  transition: all 0.2s ease-in-out;
-  &:hover {
-    background-color: black;
-    cursor: pointer;
-  }
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 `;
+
+interface IOrderButton {
+  totalCount: number;
+}
 
 const SumBox = styled.div`
   font-size: 1.1rem;
@@ -40,13 +43,14 @@ const SumBox = styled.div`
 `;
 
 function FooterBar() {
+  const { totalCount, totalPrice } = useRecoilValue(totalOrderInfoSelector);
   return (
     <FootBarForm>
       <SumBox>
-        <div>총 수량: 0개</div>
-        <div>총 가격: 0원</div>
+        <div>총 수량: {totalCount}개</div>
+        <div>총 가격: {totalPrice}원</div>
       </SumBox>
-      <OrderButton>주문하기</OrderButton>
+      <OrderButton totalCount={totalCount}>주문하기</OrderButton>
     </FootBarForm>
   );
 }

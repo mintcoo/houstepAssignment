@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-const ItemCardContainer = styled.li`
+const ItemCardContainer = styled.li<IItemCardContainer>`
+  background-color: ${(props) => (props.itemCount >= 1 ? "#ffe1d0" : "white")};
   box-sizing: border-box;
   display: flex;
-  border: 0.1rem solid #7c5d4a;
+  border: 0.1rem solid #7c4a66;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   width: 75%;
@@ -29,7 +30,7 @@ const ItemImg = styled.img`
   width: 4rem;
   height: 100%;
   margin-right: 1rem;
-  background-color: gray;
+  background-color: #b4b4b4;
 `;
 
 const InfoContainer = styled.div`
@@ -68,6 +69,9 @@ const EventIcon = styled.div`
     padding: 0.5rem 1.5rem;
   }
 `;
+interface IItemCardContainer {
+  itemCount: number;
+}
 
 interface IItemCardProps {
   item: IItemsData;
@@ -77,11 +81,6 @@ function ItemCard({ item }: IItemCardProps) {
   const { id, name, event, price } = item;
   const [itemCount, setItemCount] = useState<number>(0);
   const setSelectOrderList = useSetRecoilState(selectOrderListState);
-  const value = useRecoilValue(selectOrderListState);
-
-  useEffect(() => {
-    console.log(value, "지금리스트?");
-  }, [value]);
 
   // ----- 아이템 제거 함수-----
   const onRemoveItem = () => {
@@ -138,7 +137,7 @@ function ItemCard({ item }: IItemCardProps) {
   };
 
   return (
-    <ItemCardContainer>
+    <ItemCardContainer itemCount={itemCount}>
       {/* 아이템 이미지 */}
       <ItemImg />
       <InfoContainer>

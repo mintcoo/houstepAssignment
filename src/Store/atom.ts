@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 interface ISelectOrderList {
   id: string;
@@ -6,9 +6,32 @@ interface ISelectOrderList {
   count: number;
 }
 
-// ------ 총 오더 개수 ------
+interface ITotalOrderInfo {
+  totalCount: number;
+  totalPrice: number;
+}
+
+// ------ 총 오더 아이템 리스트 ------
 export const selectOrderListState = atom<ISelectOrderList[]>({
   key: "selectOrderList",
   default: [],
 });
-// 아무래도 전부 각각 값 받아서 selector로 나눠야할듯
+
+// ------ 총 오더 개수와 총 오더 금액 ------
+export const totalOrderInfoSelector = selector<ITotalOrderInfo>({
+  key: "totalOrderInfoSelector",
+  get: ({ get }) => {
+    const orderList = get(selectOrderListState);
+    let totalCount = 0;
+    let totalPrice = 0;
+
+    orderList.forEach((order) => {
+      totalCount += order.count;
+      totalPrice += order.count * order.price;
+    });
+    return {
+      totalCount,
+      totalPrice,
+    };
+  },
+});
